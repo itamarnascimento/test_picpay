@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Models\User;
+use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+
+class UserController extends Controller
+{
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(): Collection
+    {
+        return User::all();
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create($user)
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreUserRequest $request, Response $response): Response
+    {
+        $oUser = UserFactory::new();
+        return $response->setContent(["id" => $oUser->create($request->all())->id]);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(User $user)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(User $user)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateUserRequest $request, $id): int
+    {
+        return DB::table("users")->where("id", $id)->update($request->all());
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(User $user)
+    {
+        //
+    }
+
+}
